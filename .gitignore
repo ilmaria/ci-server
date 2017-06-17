@@ -1,1 +1,2 @@
-nimcache/
+__pycache__/
+venv/
