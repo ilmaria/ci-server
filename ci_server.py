@@ -1,6 +1,7 @@
 from flask import Flask, request
 import json
 import hmac
+import hashlib
 
 app = Flask(__name__)
 
@@ -15,7 +16,8 @@ def github_event():
     if payload.get('ref') != 'refs/heads/master':
         return ''
 
-    hexa = hmac.new(b'testisalaisuus', digestmod='sha1').hexdigest()
+    hexa = hmac.new(b'testisalaisuus', json.dumps(
+        payload), hashlib.sha1).hexdigest()
 
     print(hexa)
     print(request.headers.get('X-Github-Signature'))
