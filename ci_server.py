@@ -17,10 +17,10 @@ def github_event():
         return ''
 
     hexa = hmac.new(b'testisalaisuus', json.dumps(
-        payload), hashlib.sha1).hexdigest()
+        request.form), hashlib.sha1).hexdigest()
 
     print(hexa)
-    print(request.headers.get('X-Github-Signature'))
+    print(request.headers.get('X-Hub-Signature'))
 
     print(json.dumps(payload, indent=2))
 
