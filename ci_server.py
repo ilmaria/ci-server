@@ -14,9 +14,10 @@ def github_event():
 
     raw_data = request.get_data()
     hex_string = hmac.new(os.environ.get('GITHUB_KEY'),
-                          raw_data, hashlib.sha1).hexdigest()
+                          raw_data, hashlib.sha1).hexdigest().encode('utf-8')
+    signature = request.headers.get('X-Hub-Signature', '').encode('utf-8')
 
-    if hmac.compare_digest(request.headers.get('X-Hub-Signature'), 'sha1=' + hex_string):
+    if not hmac.compare_digest(signature, 'sha1=' + hex_string):
         return ''
 
     payload = json.loads(request.form.get('payload'))
