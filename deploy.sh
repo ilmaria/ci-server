@@ -9,7 +9,7 @@ cd ../cloud_drive
 
 # Echo yes to interactive questions. `rel/config.exs` has release build settings.
 echo "y\ny\ny\n" | mix deps.get
-echo "y\ny\ny\n" | mix release --env=prod --no-tar
+echo "y\ny\ny\n" | MIX_ENV=prod mix release --env=prod --no-tar
 
 # Start the server daemon as 'cloud-drive' user. Use `bin/cloud_drive remote_console`
 # to connect to the server's shell.
